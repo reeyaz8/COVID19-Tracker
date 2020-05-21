@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:COVID19_Tracker/Provider/api_data.dart';
 import 'package:COVID19_Tracker/Provider/country.dart';
-import 'package:COVID19_Tracker/Provider/location.dart';
 import 'package:COVID19_Tracker/Screens/HomePage.dart';
 import 'package:COVID19_Tracker/Screens/widgets/list_country.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => allData()),
-        ChangeNotifierProvider(create: (_) => LocationFinder()),
         ChangeNotifierProvider(create: (_) => SCountry())
       ],
           child: MaterialApp(
