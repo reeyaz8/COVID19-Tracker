@@ -12,6 +12,7 @@ class CountryPage extends StatelessWidget {
         height: 30.0,
         width: 20.0,
         child: GridView.builder(
+          key: PageStorageKey('country'),
           physics: BouncingScrollPhysics(),
           addAutomaticKeepAlives: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,

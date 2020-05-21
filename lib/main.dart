@@ -53,16 +53,29 @@ class SplashScreen extends StatelessWidget {
     });
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: ExactAssetImage('images/splashscreen.jpg'),
-            fit: BoxFit.fill
-          )
-        ),
-        child: BackdropFilter(filter: ImageFilter.blur(sigmaX:2.0))
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+              child: Container(
+              margin: EdgeInsets.all(5.0),
+              height: 125.0,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: ExactAssetImage('images/splashscreen.jpeg'),
+                  fit: BoxFit.fill
+                )
+              ),
+              child: BackdropFilter(filter: ImageFilter.blur(sigmaX:2.0))
+            ),
+          ),
+          SizedBox(height:50.0),
+          Container(
+            child: Text('v 1.0.1', style: TextStyle(fontWeight: FontWeight.w300),) 
+          ),
+        ],
       ),
     );
   }

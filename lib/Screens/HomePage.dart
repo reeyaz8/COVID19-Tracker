@@ -1,10 +1,8 @@
-import 'package:COVID19_Tracker/Provider/api_data.dart';
-import 'package:COVID19_Tracker/Provider/location.dart';
 import 'package:COVID19_Tracker/Screens/widgets/country.dart';
 import 'package:COVID19_Tracker/Screens/widgets/info.dart';
+import 'package:COVID19_Tracker/Screens/widgets/list_country.dart';
 import 'package:COVID19_Tracker/Screens/widgets/live.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   String name;
@@ -22,7 +20,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-     _tabController = new TabController(vsync: this, length: 3)..addListener(() {
+     _tabController = new TabController(initialIndex: 0, vsync: this, length: 3)..addListener(() {
        setState(() {
          displayTitle = title[_tabController.index];
          currentWidget = widgets[_tabController.index];
@@ -38,41 +36,49 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3, 
-      child: Scaffold(
-        appBar: AppBar(
-    title: Text(displayTitle),
-    automaticallyImplyLeading: false,
-    centerTitle: true,
-    flexibleSpace: Container(
-      decoration: BoxDecoration(gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          Colors.blue, Colors.purple
-        ]
-      ))
-    ),
-    bottom: TabBar(
-      controller: _tabController,
-      tabs: [
-      Tab(icon: Icon(Icons.live_tv),),
-      Tab(icon: Icon(Icons.account_balance),),
-      Tab(icon: Icon(Icons.info),),
-    ]),
-        ),
-        body:
-         TabBarView(
-    physics: BouncingScrollPhysics(),
-    controller: _tabController,
-    children: [
-        LivePage(),
-        CountryPage(),
-        InfoPage()
-    ]
-      ) 
+    return WillPopScope(
+      onWillPop: () async => false,
+          child: DefaultTabController(
+        length: 3, 
+        child: Scaffold(
+          appBar: AppBar(
+      title: Text(displayTitle),
+      automaticallyImplyLeading: false,
+      actions: <Widget>[
+        IconButton(icon: Icon(Icons.public), onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ListCountry()));
+        })
+      ],
+      centerTitle: true,
+      flexibleSpace: Container(
+        decoration: BoxDecoration(gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: <Color>[
+            Colors.blue, Colors.purple
+          ]
+        ))
       ),
-     );
+      bottom: TabBar(
+        controller: _tabController,
+        tabs: [
+        Tab(icon: Icon(Icons.live_tv),),
+        Tab(icon: Icon(Icons.account_balance),),
+        Tab(icon: Icon(Icons.info),),
+      ]),
+          ),
+          body:
+           TabBarView(
+      physics: BouncingScrollPhysics(),
+      controller: _tabController,
+      children: [
+          LivePage(),
+          CountryPage(),
+          InfoPage()
+      ]
+        ) 
+        ),
+       ),
+    );
     }
 }
